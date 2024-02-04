@@ -1,11 +1,22 @@
 {
-  "image": "mcr.microsoft.com/devcontainers/universal:2-linux",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "args": {
+      "HOSTIP": "172.17.0.1"
+    }
+  },
   "waitFor": "onCreateCommand",
   "onCreateCommand": ".devcontainer/setup.sh",
-  "updateContentCommand": "cargo build",
+  "updateContentCommand": "bash -l -c 'cargo install --path .'",
   "postCreateCommand": "",
-  "postAttachCommand": {
-    "server": "rustlings watch"
+  // "postAttachCommand": {
+  //   "server": "bash -l -c 'rustlings watch'"
+  // },
+  "containerEnv": {
+    "HTTP_PROXY": "",
+    "HTTPS_PROXY": "",
+    "http_proxy": "http://172.17.0.1:7890",
+    "https_proxy": "http://172.17.0.1:7890"
   },
   "customizations": {
     "vscode": {
